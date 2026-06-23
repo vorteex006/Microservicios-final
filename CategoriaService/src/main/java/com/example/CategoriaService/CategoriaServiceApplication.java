@@ -1,0 +1,16 @@
+package com.example.CategoriaService;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+
+@SpringBootApplication
+@EnableDiscoveryClient
+public class CategoriaServiceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(CategoriaServiceApplication.class, args);
+	}
+
+}
+//http://localhost:8092/swagger-ui.html http://localhost:8092/api/v1/categorias

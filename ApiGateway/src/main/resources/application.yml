@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: api-gateway
+  profiles:
+    active: dev
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        # === PIPE ===
+        - id: ruta-postulante
+          uri: lb://POSTULANTE
+          predicates:
+            - Path=/postulante/**
+          filters:
+            - StripPrefix=1
+
+        - id: ruta-empresa
+          uri: lb://EMPRESA
+          predicates:
+            - Path=/empresa/**
+          filters:
+            - StripPrefix=1
+
+        # === BENJA ===
+        - id: categoria-service
+          uri: lb://MS-CATEGORIA
+          predicates:
+            - Path=/api/v1/categorias/**
+
+        - id: evaluacion-service
+          uri: lb://MS-EVALUACION
+          predicates:
+            - Path=/api/v1/evaluaciones/**
+
+        - id: notificacion-service
+          uri: lb://MS-NOTIFICACION
+          predicates:
+            - Path=/api/v1/notificaciones/**
+
+server:
+  port: ${PORT:8081}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
